@@ -1,0 +1,11 @@
+#
+# README for the SSH Puppet module
+#
+# Read http://fedorasolved.org/post-install-solutions/securing-ssh
+#
+# Settings in /etc/ssh/sshd_config:
+# Setting           Default
+# Port              22
+# Protocol          2
+# PermitRootLogin   yes
+# LoginGraceTime    30

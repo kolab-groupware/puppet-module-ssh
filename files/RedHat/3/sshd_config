@@ -1,0 +1,16 @@
+# Managed with puppet
+
+Port 22
+Protocol 2
+SyslogFacility AUTHPRIV
+
+LoginGraceTime 30
+
+PermitEmptyPasswords no
+PermitRootLogin without-password
+X11Forwarding yes
+KeepAlive yes
+Subsystem   sftp    /usr/libexec/openssh/sftp-server
+ClientAliveInterval 90
+ClientAliveCountMax 5
+

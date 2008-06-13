@@ -1,0 +1,41 @@
+# Managed with puppet
+
+Port <%= sshd_port %>
+Protocol <%= sshd_protocol %>
+
+SyslogFacility AUTHPRIV
+
+LoginGraceTime <%= sshd_logingracetime %>
+
+PermitRootLogin <%= sshd_rootlogin %>
+
+PermitEmptyPasswords no
+X11Forwarding yes
+KeepAlive yes
+Subsystem   sftp    /usr/libexec/openssh/sftp-server
+ClientAliveInterval 90
+ClientAliveCountMax 5
+
+<% case sshd_denyusers
+when "" %>
+<% else -%>
+DenyUsers <% sshd_denyusers.each do |denyuser| denyuser %>
+<% end -%>
+
+<% case sshd_allowusers
+when "" %>
+<% else -%>
+AllowUsers <% sshd_allowusers.each do |allowuser| allowuser %>
+<% end -%>
+
+<% case sshd_denygroups
+when "" %>
+<% else -%>
+DenyGroups <% sshd_denygroups.each do |denygroup| denygroup %>
+<% end -%>
+
+<% case sshd_allowgroups
+when "" %>
+<% else -%>
+AllowGroups <% sshd_allowgroups.each do |allowgroup| allowgroup %>
+<% end -%>
