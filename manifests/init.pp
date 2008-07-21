@@ -17,11 +17,23 @@ class ssh::server {
         mode => 600,
         replace => true,
         source => [
-            "puppet://$server/private/ssh/$os/$osver/sshd_config",
-            "puppet://$server/private/ssh/$os/sshd_config",
-            "puppet://$server/private/ssh/sshd_config",
+            "puppet://$server/private/$domain/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/private/$domain/ssh/$os/$osver/sshd_config",
+            "puppet://$server/private/$domain/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/private/$domain/ssh/$os/sshd_config",
+            "puppet://$server/private/$domain/ssh/sshd_config.$hostname",
+            "puppet://$server/private/$domain/ssh/sshd_config",
+            "puppet://$server/files/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/files/ssh/$os/$osver/sshd_config",
+            "puppet://$server/files/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/files/ssh/$os/sshd_config",
+            "puppet://$server/files/ssh/sshd_config.$hostname",
+            "puppet://$server/files/ssh/sshd_config",
+            "puppet://$server/ssh/$os/$osver/etc/ssh/sshd_config.$hostname",
             "puppet://$server/ssh/$os/$osver/etc/ssh/sshd_config",
+            "puppet://$server/ssh/$os/etc/ssh/sshd_config.$hostname",
             "puppet://$server/ssh/$os/etc/ssh/sshd_config",
+            "puppet://$server/ssh/etc/ssh/sshd_config.$hostname"
             "puppet://$server/ssh/etc/ssh/sshd_config"
         ],
         notify => Service["sshd"],
@@ -46,7 +58,8 @@ class ssh::denyhosts inherits ssh::server {
         mode => 644,
         replace => true,
         source => [
-            "puppet://$server/private/ssh/denyhosts.conf",
+            "puppet://$server/private/$domain/ssh/denyhosts.conf",
+            "puppet://$server/files/ssh/denyhosts.conf",
             "puppet://$server/ssh/denyhosts.conf"
         ]
     }
