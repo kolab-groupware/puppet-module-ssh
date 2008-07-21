@@ -33,7 +33,7 @@ class ssh::server {
             "puppet://$server/ssh/$os/$osver/etc/ssh/sshd_config",
             "puppet://$server/ssh/$os/etc/ssh/sshd_config.$hostname",
             "puppet://$server/ssh/$os/etc/ssh/sshd_config",
-            "puppet://$server/ssh/etc/ssh/sshd_config.$hostname"
+            "puppet://$server/ssh/etc/ssh/sshd_config.$hostname",
             "puppet://$server/ssh/etc/ssh/sshd_config"
         ],
         notify => Service["sshd"],
