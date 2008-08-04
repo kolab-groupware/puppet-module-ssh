@@ -29,12 +29,12 @@ class ssh::server {
             "puppet://$server/files/ssh/$os/sshd_config",
             "puppet://$server/files/ssh/sshd_config.$hostname",
             "puppet://$server/files/ssh/sshd_config",
-            "puppet://$server/ssh/$os/$osver/etc/ssh/sshd_config.$hostname",
-            "puppet://$server/ssh/$os/$osver/etc/ssh/sshd_config",
-            "puppet://$server/ssh/$os/etc/ssh/sshd_config.$hostname",
-            "puppet://$server/ssh/$os/etc/ssh/sshd_config",
-            "puppet://$server/ssh/etc/ssh/sshd_config.$hostname",
-            "puppet://$server/ssh/etc/ssh/sshd_config"
+            "puppet://$server/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/ssh/$os/$osver/sshd_config",
+            "puppet://$server/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/ssh/$os/sshd_config",
+            "puppet://$server/ssh/sshd_config.$hostname",
+            "puppet://$server/ssh/sshd_config"
         ],
         notify => Service["sshd"],
         require => Package["openssh-server"]
