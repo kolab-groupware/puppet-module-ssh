@@ -1,17 +1,27 @@
 # Managed with puppet
 
-class ssh::server {
-    package { "openssh-server":
+class ssh {
+    @package { [
+            "denyhosts",
+            "openssh-clients",
+            "openssh-server"
+        ]:
         ensure => installed
     }
 
-    service { "sshd":
+    @service { "sshd":
         ensure => running,
         enable => true,
         require => Package["openssh-server"]
     }
 
-    file { "/etc/ssh/sshd_config":
+    @service { "denyhosts":
+        enable => true,
+        ensure => running,
+        require => Package["denyhosts"]
+    }
+
+    @file { "/etc/ssh/sshd_config":
         owner => "root",
         group => "root",
         mode => 600,
@@ -33,26 +43,13 @@ class ssh::server {
             "puppet://$server/ssh/$os/$osver/sshd_config",
             "puppet://$server/ssh/$os/sshd_config.$hostname",
             "puppet://$server/ssh/$os/sshd_config",
-            "puppet://$server/ssh/sshd_config.$hostname",
             "puppet://$server/ssh/sshd_config"
         ],
         notify => Service["sshd"],
         require => Package["openssh-server"]
     }
-}
 
-class ssh::denyhosts inherits ssh::server {
-    package { "denyhosts":
-        ensure => installed
-    }
-
-    service { "denyhosts":
-        enable => true,
-        ensure => running,
-        require => Package["denyhosts"]
-    }
-
-    file { "/etc/denyhosts.conf":
+    @file { "/etc/denyhosts.conf":
         owner => "root",
         group => "root",
         mode => 644,
@@ -62,5 +59,35 @@ class ssh::denyhosts inherits ssh::server {
             "puppet://$server/files/ssh/denyhosts.conf",
             "puppet://$server/ssh/denyhosts.conf"
         ]
+    }
+
+    class client inherits ssh {
+        realize(Package["openssh-clients"])
+    }
+
+    class server inherits ssh {
+        realize(Package["openssh-server"], Service["sshd"], File["/etc/ssh/sshd_config"])
+    }
+
+    class denyhosts inherits server {
+        realize(Package["denyhosts"], Service["denyhosts"], File["/etc/denyhosts.conf"])
+    }
+
+    class rsakeys inherits server {
+        case $sshrsakey {
+            "": {
+                err("No sshrsakey on $fqdn")
+            }
+            default: {
+                @@sshkey { "$fqdn":
+                    type => ssh-rsa,
+                    key => "$sshrsakey",
+                    ensure => present,
+                    require => Package["openssh-client"],
+                }
+            }
+        }
+
+        Sshkey <<||>>
     }
 }
