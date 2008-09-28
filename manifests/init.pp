@@ -61,6 +61,16 @@ class ssh {
         ]
     }
 
+    if defined(File["/etc/hosts.allow"]) {
+        File["/etc/hosts.allow"] {
+            ensure => file
+        }
+    } else {
+        @file { "/etc/hosts.allow":
+            content => "# Managed by puppet\n\n"
+        }
+    }
+
     class client inherits ssh {
         realize(Package["openssh-clients"])
     }
@@ -71,6 +81,14 @@ class ssh {
 
     class denyhosts inherits server {
         realize(Package["denyhosts"], Service["denyhosts"], File["/etc/denyhosts.conf"])
+
+        define whitelist($subnet) {
+            File["/etc/hosts.allow"] {
+                content +> "sshd: $subnet\n"
+            }
+
+            realize(File["/etc/hosts.allow"])
+        }
     }
 
     class rsakeys inherits server {
