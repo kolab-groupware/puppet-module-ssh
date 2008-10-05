@@ -73,7 +73,7 @@ class ssh {
         realize(Package["denyhosts"], Service["denyhosts"], File["/etc/denyhosts.conf"])
     }
 
-    class rsakeys inherits server {
+    class rsakeys {
         case $sshrsakey {
             "": {
                 err("No sshrsakey on $fqdn")
@@ -84,10 +84,11 @@ class ssh {
                     key => "$sshrsakey",
                     ensure => present,
                     require => Package["openssh-client"],
+                    tag => "ssh_key_$domain"
                 }
             }
         }
 
-        Sshkey <<||>>
+        Sshkey <<| tag == "ssh_key_$domain" |>>
     }
 }
