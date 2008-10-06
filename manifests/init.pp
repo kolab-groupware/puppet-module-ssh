@@ -83,7 +83,7 @@ class ssh {
                     type => ssh-rsa,
                     key => "$sshrsakey",
                     ensure => present,
-                    require => Package["openssh-client"],
+                    require => Package["openssh-clients"],
                     tag => "ssh_key_$domain"
                 }
             }
