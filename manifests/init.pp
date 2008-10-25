@@ -27,12 +27,12 @@ class ssh {
         mode => 600,
         replace => true,
         source => [
-            "puppet://$server/private/$domain/ssh/$os/$osver/sshd_config.$hostname",
-            "puppet://$server/private/$domain/ssh/$os/$osver/sshd_config",
-            "puppet://$server/private/$domain/ssh/$os/sshd_config.$hostname",
-            "puppet://$server/private/$domain/ssh/$os/sshd_config",
-            "puppet://$server/private/$domain/ssh/sshd_config.$hostname",
-            "puppet://$server/private/$domain/ssh/sshd_config",
+            "puppet://$server/private/$environment/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/private/$environment/ssh/$os/$osver/sshd_config",
+            "puppet://$server/private/$environment/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/private/$environment/ssh/$os/sshd_config",
+            "puppet://$server/private/$environment/ssh/sshd_config.$hostname",
+            "puppet://$server/private/$environment/ssh/sshd_config",
             "puppet://$server/files/ssh/$os/$osver/sshd_config.$hostname",
             "puppet://$server/files/ssh/$os/$osver/sshd_config",
             "puppet://$server/files/ssh/$os/sshd_config.$hostname",
@@ -55,7 +55,7 @@ class ssh {
         mode => 644,
         replace => true,
         source => [
-            "puppet://$server/private/$domain/ssh/denyhosts.conf",
+            "puppet://$server/private/$environment/ssh/denyhosts.conf",
             "puppet://$server/files/ssh/denyhosts.conf",
             "puppet://$server/ssh/denyhosts.conf"
         ]
