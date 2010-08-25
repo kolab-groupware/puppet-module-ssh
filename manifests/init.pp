@@ -33,17 +33,17 @@ class ssh {
             "puppet://$server/private/$environment/ssh/$os/sshd_config",
             "puppet://$server/private/$environment/ssh/sshd_config.$hostname",
             "puppet://$server/private/$environment/ssh/sshd_config",
-            "puppet://$server/files/ssh/$os/$osver/sshd_config.$hostname",
-            "puppet://$server/files/ssh/$os/$osver/sshd_config",
-            "puppet://$server/files/ssh/$os/sshd_config.$hostname",
-            "puppet://$server/files/ssh/$os/sshd_config",
-            "puppet://$server/files/ssh/sshd_config.$hostname",
-            "puppet://$server/files/ssh/sshd_config",
-            "puppet://$server/ssh/$os/$osver/sshd_config.$hostname",
-            "puppet://$server/ssh/$os/$osver/sshd_config",
-            "puppet://$server/ssh/$os/sshd_config.$hostname",
-            "puppet://$server/ssh/$os/sshd_config",
-            "puppet://$server/ssh/sshd_config"
+            "puppet://$server/modules/files/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/modules/files/ssh/$os/$osver/sshd_config",
+            "puppet://$server/modules/files/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/modules/files/ssh/$os/sshd_config",
+            "puppet://$server/modules/files/ssh/sshd_config.$hostname",
+            "puppet://$server/modules/files/ssh/sshd_config",
+            "puppet://$server/modules/ssh/$os/$osver/sshd_config.$hostname",
+            "puppet://$server/modules/ssh/$os/$osver/sshd_config",
+            "puppet://$server/modules/ssh/$os/sshd_config.$hostname",
+            "puppet://$server/modules/ssh/$os/sshd_config",
+            "puppet://$server/modules/ssh/sshd_config"
         ],
         notify => Service["sshd"],
         require => Package["openssh-server"]
@@ -56,8 +56,8 @@ class ssh {
         replace => true,
         source => [
             "puppet://$server/private/$environment/ssh/denyhosts.conf",
-            "puppet://$server/files/ssh/denyhosts.conf",
-            "puppet://$server/ssh/denyhosts.conf"
+            "puppet://$server/modules/files/ssh/denyhosts.conf",
+            "puppet://$server/modules/ssh/denyhosts.conf"
         ]
     }
 
