@@ -79,6 +79,19 @@ class ssh {
 
     class denyhosts inherits server {
         realize(Package["denyhosts"], Service["denyhosts"], File["/etc/denyhosts.conf"])
+
+        file { "/var/lib/denyhosts/allowed-hosts":
+            owner => "root",
+            group =>"root",
+            mode => 640,
+            source => [
+                    "puppet://$server/private/$environment/ssh/denyhosts.allowed-hosts",
+                    "puppet://$server/modules/files/ssh/denyhosts.allowed-hosts",
+                    "puppet://$server/modules/ssh/denyhosts.allowed-hosts"
+                ],
+            require => Package["denyhosts"],
+            notify => Service["denyhosts"]
+        }
     }
 
     class rsakeys {
