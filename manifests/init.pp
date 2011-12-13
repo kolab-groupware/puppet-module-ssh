@@ -12,13 +12,19 @@ class ssh {
     @service { "sshd":
         ensure => running,
         enable => true,
-        require => Package["openssh-server"]
+        require => [
+                File["/etc/ssh/sshd_config"],
+                Package["openssh-server"]
+            ]
     }
 
     @service { "denyhosts":
         enable => true,
         ensure => running,
-        require => Package["denyhosts"]
+        require => [
+                File["/etc/denyhosts.conf"],
+                Package["denyhosts"]
+            ]
     }
 
     @file { "/etc/ssh/sshd_config":
