@@ -61,10 +61,12 @@ class ssh {
         mode => 644,
         replace => true,
         source => [
-            "puppet://$server/private/$environment/ssh/denyhosts.conf",
-            "puppet://$server/files/ssh/denyhosts.conf",
-            "puppet://$server/ssh/denyhosts.conf"
-        ]
+                "puppet://$server/private/$environment/ssh/denyhosts.conf",
+                "puppet://$server/files/ssh/denyhosts.conf",
+                "puppet://$server/ssh/denyhosts.conf"
+            ],
+        require => Package["denyhosts"],
+        notify => Service["denyhosts"]
     }
 
     class client inherits ssh {
