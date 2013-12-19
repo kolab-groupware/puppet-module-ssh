@@ -105,7 +105,8 @@ class ssh {
                     host_aliases => "$hostname",
                     key => "$sshrsakey",
                     ensure => present,
-                    tag => "ssh_key_$domain"
+                    tag => "ssh_key_$domain",
+                    noop => false
                 }
             }
         }
