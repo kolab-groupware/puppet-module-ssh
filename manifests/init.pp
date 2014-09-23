@@ -30,7 +30,7 @@ class ssh {
     @file { "/etc/ssh/sshd_config":
         owner => "root",
         group => "root",
-        mode => 600,
+        mode => "600",
         replace => true,
         source => [
             "puppet://$server/private/$environment/ssh/$os/$osver/sshd_config.$hostname",
@@ -58,7 +58,7 @@ class ssh {
     @file { "/etc/denyhosts.conf":
         owner => "root",
         group => "root",
-        mode => 644,
+        mode => "644",
         replace => true,
         source => [
                 "puppet://$server/private/$environment/ssh/denyhosts.conf",
@@ -83,7 +83,7 @@ class ssh {
         file { "/var/lib/denyhosts/allowed-hosts":
             owner => "root",
             group =>"root",
-            mode => 640,
+            mode => "640",
             source => [
                     "puppet://$server/private/$environment/ssh/denyhosts.allowed-hosts",
                     "puppet://$server/modules/files/ssh/denyhosts.allowed-hosts",
