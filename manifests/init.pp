@@ -77,7 +77,7 @@ class ssh {
         realize(Package["openssh-server"], Service["sshd"], File["/etc/ssh/sshd_config"])
     }
 
-    class denyhosts inherits server {
+    class denyhosts inherits ssh::server {
         realize(Package["denyhosts"], Service["denyhosts"], File["/etc/denyhosts.conf"])
 
         file { "/var/lib/denyhosts/allowed-hosts":
